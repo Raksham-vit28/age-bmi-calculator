@@ -1,0 +1,3432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>VitalCare | Health & Nutrition Assessment</title>
+
+<meta
+    name="description"
+    content="Professional age, BMI, calorie target and general nutrition assessment calculator."
+>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --navy: #12304a;
+    --blue: #1769aa;
+    --blue-dark: #12598e;
+    --blue-light: #edf6fc;
+
+    --green: #178557;
+    --green-light: #edf8f2;
+
+    --orange: #bd7900;
+    --orange-light: #fff7e5;
+
+    --red: #bd382c;
+    --red-light: #fdf0ee;
+
+    --text: #243746;
+    --muted: #6d7d88;
+    --border: #dce5eb;
+    --background: #f4f7f9;
+    --white: #ffffff;
+
+    --shadow:
+        0 4px 18px rgba(20, 50, 70, 0.055);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+header {
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    width: min(1180px, 94%);
+    margin: auto;
+
+    min-height: 74px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: var(--blue);
+    color: white;
+
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.brand h1 {
+    color: var(--navy);
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.brand p {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.header-badge {
+    color: var(--blue);
+    background: var(--blue-light);
+
+    border-radius: 5px;
+
+    padding: 7px 11px;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.container {
+    width: min(1180px, 94%);
+    margin: auto;
+}
+
+.hero {
+    padding: 38px 0 25px;
+}
+
+.hero h2 {
+    color: var(--navy);
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 760px;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   MAIN GRID
+========================================= */
+
+.main-grid {
+    display: grid;
+
+    grid-template-columns: 340px 1fr;
+
+    gap: 20px;
+
+    align-items: start;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.card {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    box-shadow: var(--shadow);
+}
+
+.card-header {
+    padding: 19px 21px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.card-header h3 {
+    color: var(--navy);
+    font-size: 16px;
+}
+
+.card-header p {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+.card-body {
+    padding: 21px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+label {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    margin-bottom: 6px;
+}
+
+.hint {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+input,
+select {
+    width: 100%;
+
+    min-height: 44px;
+
+    padding: 10px 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    background: #fbfcfd;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--blue);
+
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 170, .10);
+}
+
+.height-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 9px;
+}
+
+.height-input {
+    position: relative;
+}
+
+.height-input input {
+    padding-right: 38px;
+}
+
+.height-unit {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.calculate {
+    width: 100%;
+
+    min-height: 46px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: var(--blue);
+    color: white;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.calculate:hover {
+    background: var(--blue-dark);
+}
+
+.reset {
+    width: 100%;
+
+    min-height: 40px;
+
+    margin-top: 8px;
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    background: white;
+    color: var(--muted);
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.reset:hover {
+    background: #f8fafb;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.error {
+    display: none;
+
+    padding: 10px;
+
+    margin-bottom: 15px;
+
+    background: var(--red-light);
+
+    border: 1px solid #efc6c1;
+
+    border-radius: 6px;
+
+    color: var(--red);
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   RESULTS HEADER
+========================================= */
+
+.results-header {
+    padding: 19px 21px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.results-header h3 {
+    color: var(--navy);
+    font-size: 16px;
+}
+
+.results-header p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* =========================================
+   RESULTS
+========================================= */
+
+.results-body {
+    padding: 20px;
+}
+
+.metrics {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+}
+
+.metric {
+    padding: 16px;
+
+    background: #fbfcfd;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+.metric-label {
+    color: var(--muted);
+
+    text-transform: uppercase;
+
+    letter-spacing: .45px;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+}
+
+.metric-value {
+    color: var(--navy);
+
+    font-size: 22px;
+
+    font-weight: 850;
+}
+
+.metric-unit {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.metric-sub {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-title {
+    color: var(--navy);
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    margin-top: 21px;
+
+    margin-bottom: 9px;
+}
+
+
+/* =========================================
+   BMI
+========================================= */
+
+.bmi-panel {
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+.bmi-top {
+    padding: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: #f8fafb;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.bmi-title {
+    color: var(--navy);
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.bmi-number {
+    color: var(--navy);
+
+    font-size: 29px;
+
+    font-weight: 900;
+}
+
+.bmi-content {
+    padding: 17px;
+}
+
+.status {
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    margin-bottom: 13px;
+}
+
+.status-normal {
+    color: var(--green);
+
+    background: var(--green-light);
+}
+
+.status-underweight {
+    color: #2169a8;
+
+    background: var(--blue-light);
+}
+
+.status-overweight {
+    color: var(--orange);
+
+    background: var(--orange-light);
+}
+
+.status-obesity {
+    color: var(--red);
+
+    background: var(--red-light);
+}
+
+.bmi-scale {
+    position: relative;
+
+    display: flex;
+
+    height: 10px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+}
+
+.scale-1 {
+    width: 25%;
+    background: #70b5df;
+}
+
+.scale-2 {
+    width: 25%;
+    background: #63b984;
+}
+
+.scale-3 {
+    width: 25%;
+    background: #e4b94d;
+}
+
+.scale-4 {
+    width: 25%;
+    background: #d77c73;
+}
+
+.marker {
+    position: absolute;
+
+    top: -4px;
+
+    width: 4px;
+    height: 18px;
+
+    background: #17212b;
+
+    border-radius: 4px;
+}
+
+.scale-labels {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   HEALTH INFORMATION
+========================================= */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.info-box {
+    padding: 16px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: white;
+}
+
+.info-box h4 {
+    color: var(--navy);
+
+    font-size: 12px;
+
+    margin-bottom: 6px;
+}
+
+.info-box p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+.info-value {
+    color: var(--blue);
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    margin-bottom: 2px;
+}
+
+
+/* =========================================
+   CALORIE TARGET PANEL
+========================================= */
+
+.calorie-panel {
+    margin-top: 12px;
+
+    padding: 17px;
+
+    border: 1px solid #cfe3ef;
+
+    border-radius: 8px;
+
+    background: var(--blue-light);
+}
+
+.calorie-panel.warn {
+    background: var(--orange-light);
+    border-color: #ecdcb9;
+}
+
+.calorie-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: baseline;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.calorie-top h4 {
+    color: var(--navy);
+    font-size: 13px;
+}
+
+.calorie-target-value {
+    color: var(--blue);
+    font-size: 27px;
+    font-weight: 900;
+}
+
+.calorie-breakdown {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 13px;
+}
+
+.calorie-breakdown div {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    padding: 10px;
+}
+
+.calorie-breakdown .cb-label {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.calorie-breakdown .cb-value {
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 800;
+    margin-top: 3px;
+}
+
+.calorie-panel p {
+    color: var(--muted);
+    font-size: 10.5px;
+    line-height: 1.55;
+    margin-top: 11px;
+}
+
+
+/* =========================================
+   NUTRITION
+========================================= */
+
+.nutrition-section {
+    margin-top: 22px;
+}
+
+.nutrition-intro {
+    padding: 15px;
+
+    background: var(--blue-light);
+
+    border: 1px solid #cfe3ef;
+
+    border-radius: 8px;
+
+    margin-bottom: 12px;
+}
+
+.nutrition-intro h4 {
+    color: var(--navy);
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+.nutrition-intro p {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.55;
+}
+
+.food-columns {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.food-card {
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    background: white;
+}
+
+.food-header {
+    padding: 14px 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.food-header.veg {
+    background: var(--green-light);
+}
+
+.food-header.nonveg {
+    background: #fff3f0;
+}
+
+.food-icon {
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 16px;
+
+    background: white;
+}
+
+.food-header h4 {
+    color: var(--navy);
+
+    font-size: 13px;
+}
+
+.food-header p {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+.food-body {
+    padding: 15px;
+}
+
+.meal {
+    margin-bottom: 14px;
+}
+
+.meal:last-child {
+    margin-bottom: 0;
+}
+
+.meal-title {
+    color: var(--navy);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+}
+
+.food-list {
+    list-style: none;
+}
+
+.food-list li {
+    position: relative;
+
+    padding-left: 14px;
+
+    margin-bottom: 4px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+.food-list li::before {
+    content: "•";
+
+    position: absolute;
+
+    left: 0;
+
+    color: var(--blue);
+
+    font-weight: 900;
+}
+
+
+/* =========================================
+   FOOD PRIORITIES
+========================================= */
+
+.food-priorities {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.priority-box {
+    padding: 15px;
+
+    border-radius: 8px;
+
+    border: 1px solid var(--border);
+}
+
+.priority-box h4 {
+    color: var(--navy);
+
+    font-size: 12px;
+
+    margin-bottom: 7px;
+}
+
+.priority-box ul {
+    list-style: none;
+}
+
+.priority-box li {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-bottom: 4px;
+
+    padding-left: 13px;
+
+    position: relative;
+}
+
+.priority-box li::before {
+    position: absolute;
+
+    left: 0;
+}
+
+.emphasize {
+    background: var(--green-light);
+
+    border-color: #cfe6d9;
+}
+
+.emphasize li::before {
+    content: "✓";
+
+    color: var(--green);
+}
+
+.limit {
+    background: #fff8ed;
+
+    border-color: #ecdcb9;
+}
+
+.limit li::before {
+    content: "•";
+
+    color: var(--orange);
+}
+
+
+/* =========================================
+   WEIGHT RANGE
+========================================= */
+
+.weight-range {
+    margin-top: 12px;
+
+    padding: 17px;
+
+    background: var(--blue-light);
+
+    border: 1px solid #cfe3ef;
+
+    border-radius: 8px;
+}
+
+.weight-range h4 {
+    color: var(--navy);
+
+    font-size: 12px;
+}
+
+.weight-range strong {
+    display: block;
+
+    color: var(--blue);
+
+    font-size: 23px;
+
+    margin: 5px 0;
+}
+
+.weight-range p {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   CLINICAL NOTE
+========================================= */
+
+.note {
+    margin-top: 12px;
+
+    padding: 14px;
+
+    background: #fffdf3;
+
+    border: 1px solid #eadfae;
+
+    border-radius: 7px;
+}
+
+.note strong {
+    color: #705900;
+
+    font-size: 11px;
+}
+
+.note p {
+    color: #746b50;
+
+    font-size: 10px;
+
+    margin-top: 4px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty {
+    text-align: center;
+
+    padding: 65px 20px;
+
+    color: var(--muted);
+}
+
+.empty-icon {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--blue-light);
+
+    color: var(--blue);
+
+    font-size: 23px;
+}
+
+.empty h4 {
+    color: var(--navy);
+
+    margin-bottom: 5px;
+}
+
+.empty p {
+    font-size: 11px;
+}
+
+
+/* =========================================
+   REFERENCE
+========================================= */
+
+.reference {
+    margin-top: 22px;
+}
+
+.reference h3 {
+    color: var(--navy);
+
+    font-size: 17px;
+
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 11px 13px;
+
+    text-align: left;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 11px;
+}
+
+th {
+    background: #f8fafb;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    margin-top: 45px;
+
+    padding: 25px;
+
+    border-top: 1px solid var(--border);
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width: 950px) {
+
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .calorie-breakdown {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 650px) {
+
+    .header-badge {
+        display: none;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .metrics {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .info-grid,
+    .food-columns,
+    .food-priorities {
+        grid-template-columns: 1fr;
+    }
+
+    .header-inner {
+        min-height: 63px;
+    }
+}
+
+@media(max-width: 400px) {
+
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .height-row {
+        grid-template-columns: 1fr;
+    }
+
+    .calorie-breakdown {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header>
+
+<div class="header-inner">
+
+<div class="brand">
+
+<div class="logo">
++
+</div>
+
+<div>
+
+<h1>
+VitalCare Health Assessment
+</h1>
+
+<p>
+Age, BMI, Calorie Target & Nutrition Guidance
+</p>
+
+</div>
+
+</div>
+
+
+<div class="header-badge">
+EDUCATIONAL HEALTH TOOL
+</div>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- =====================================
+     HERO
+===================================== -->
+
+<section class="hero">
+
+<h2>
+Personal Health Assessment
+</h2>
+
+<p>
+Enter your date of birth, sex, height, weight, activity level
+and goal to calculate your age, BMI, BSA, estimated calorie
+needs and receive general vegetarian and non-vegetarian food
+recommendations.
+</p>
+
+</section>
+
+
+<section class="main-grid">
+
+
+<!-- =====================================
+     INPUT CARD
+===================================== -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h3>
+Personal Information
+</h3>
+
+<p>
+Enter the information below to begin.
+</p>
+
+</div>
+
+
+<div class="card-body">
+
+<div
+id="error"
+class="error"
+></div>
+
+
+<form id="healthForm">
+
+
+<div class="form-group">
+
+<label for="dob">
+Date of Birth
+</label>
+
+<input
+id="dob"
+type="date"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="sex">
+Sex
+</label>
+
+<select
+id="sex"
+required
+>
+
+<option value="">
+Select sex
+</option>
+
+<option value="male">
+Male
+</option>
+
+<option value="female">
+Female
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Height
+</label>
+
+
+<div class="height-row">
+
+
+<div class="height-input">
+
+<input
+id="feet"
+type="number"
+min="2"
+max="8"
+step="1"
+placeholder="Feet"
+required
+>
+
+<span class="height-unit">
+ft
+</span>
+
+</div>
+
+
+<div class="height-input">
+
+<input
+id="inches"
+type="number"
+min="0"
+max="11.9"
+step="0.1"
+placeholder="Inches"
+required
+>
+
+<span class="height-unit">
+in
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="weight">
+Weight
+</label>
+
+
+<div class="height-input">
+
+<input
+id="weight"
+type="number"
+min="10"
+max="500"
+step="0.1"
+placeholder="Enter weight in kg"
+required
+>
+
+<span class="height-unit">
+kg
+</span>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="activity">
+Activity Level
+</label>
+
+<select
+id="activity"
+required
+>
+
+<option value="1.2">
+Sedentary (little/no exercise)
+</option>
+
+<option value="1.375">
+Light (exercise 1–3 days/week)
+</option>
+
+<option value="1.55" selected>
+Moderate (exercise 3–5 days/week)
+</option>
+
+<option value="1.725">
+Active (exercise 6–7 days/week)
+</option>
+
+<option value="1.9">
+Very active (hard training / physical job)
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="goal">
+Goal
+</label>
+
+<select
+id="goal"
+required
+>
+
+<option value="maintain">
+Maintain current weight
+</option>
+
+<option value="lose" selected>
+Lose weight
+</option>
+
+<option value="gain">
+Gain weight
+</option>
+
+</select>
+
+<span class="hint">
+Used to suggest a daily calorie target alongside your BMI.
+</span>
+
+</div>
+
+
+<button
+type="submit"
+class="calculate"
+>
+Calculate Assessment
+</button>
+
+
+<button
+type="button"
+class="reset"
+id="reset"
+>
+Reset
+</button>
+
+
+</form>
+
+
+<div style="
+text-align:center;
+margin-top:12px;
+font-size:10px;
+color:#7a8992;
+">
+🔒 Your information is processed locally in your browser.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================
+     RESULTS CARD
+===================================== -->
+
+<div class="card">
+
+
+<div class="results-header">
+
+<h3>
+Health Assessment Results
+</h3>
+
+<p>
+Calculated from the information provided.
+</p>
+
+</div>
+
+
+<div
+id="empty"
+class="empty"
+>
+
+<div class="empty-icon">
+⚕
+</div>
+
+<h4>
+Assessment not calculated
+</h4>
+
+<p>
+Enter your information to generate your results.
+</p>
+
+</div>
+
+
+<div
+id="results"
+class="results-body"
+style="display:none;"
+>
+
+
+<!-- BASIC METRICS -->
+
+<div class="metrics">
+
+
+<div class="metric">
+
+<div class="metric-label">
+Age
+</div>
+
+<span
+id="age"
+class="metric-value"
+>
+--
+</span>
+
+<span class="metric-unit">
+years
+</span>
+
+<div
+id="ageDetail"
+class="metric-sub"
+>
+--
+</div>
+
+</div>
+
+
+<div class="metric">
+
+<div class="metric-label">
+Height
+</div>
+
+<span
+id="heightCm"
+class="metric-value"
+>
+--
+</span>
+
+<span class="metric-unit">
+cm
+</span>
+
+<div
+id="heightDisplay"
+class="metric-sub"
+>
+--
+</div>
+
+</div>
+
+
+<div class="metric">
+
+<div class="metric-label">
+Weight
+</div>
+
+<span
+id="weightResult"
+class="metric-value"
+>
+--
+</span>
+
+<span class="metric-unit">
+kg
+</span>
+
+<div
+id="weightLb"
+class="metric-sub"
+>
+--
+</div>
+
+</div>
+
+
+<div class="metric">
+
+<div class="metric-label">
+BSA
+</div>
+
+<span
+id="bsa"
+class="metric-value"
+>
+--
+</span>
+
+<span class="metric-unit">
+m²
+</span>
+
+<div class="metric-sub">
+Mosteller
+</div>
+
+</div>
+
+
+<div class="metric">
+
+<div class="metric-label">
+BMI
+</div>
+
+<span
+id="bmiMetric"
+class="metric-value"
+>
+--
+</span>
+
+<span class="metric-unit">
+kg/m²
+</span>
+
+<div
+id="bmiMetricSub"
+class="metric-sub"
+>
+--
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CALORIE TARGET -->
+
+<div class="section-title">
+Estimated Daily Calorie Target
+</div>
+
+
+<div
+id="caloriePanel"
+class="calorie-panel"
+>
+
+
+<div class="calorie-top">
+
+<h4 id="calorieGoalLabel">
+Daily calorie target
+</h4>
+
+<div>
+<span
+id="calorieTarget"
+class="calorie-target-value"
+>--</span>
+<span class="metric-unit"> kcal/day</span>
+</div>
+
+</div>
+
+
+<div class="calorie-breakdown">
+
+<div>
+<div class="cb-label">BMR</div>
+<div id="bmrValue" class="cb-value">--</div>
+</div>
+
+<div>
+<div class="cb-label">Maintenance (TDEE)</div>
+<div id="tdeeValue" class="cb-value">--</div>
+</div>
+
+<div>
+<div class="cb-label">Est. weekly change</div>
+<div id="weeklyChangeValue" class="cb-value">--</div>
+</div>
+
+</div>
+
+
+<p id="calorieNote">
+--
+</p>
+
+</div>
+
+
+<!-- BMI -->
+
+<div class="section-title">
+Body Mass Index
+</div>
+
+
+<div class="bmi-panel">
+
+
+<div class="bmi-top">
+
+<div class="bmi-title">
+BMI
+</div>
+
+<div
+id="bmi"
+class="bmi-number"
+>
+--
+</div>
+
+</div>
+
+
+<div class="bmi-content">
+
+
+<div
+id="bmiStatus"
+class="status"
+>
+--
+</div>
+
+
+<div class="bmi-scale">
+
+<div class="scale-1"></div>
+<div class="scale-2"></div>
+<div class="scale-3"></div>
+<div class="scale-4"></div>
+
+<div
+id="marker"
+class="marker"
+></div>
+
+</div>
+
+
+<div class="scale-labels">
+
+<span>
+Underweight
+</span>
+
+<span>
+Normal
+</span>
+
+<span>
+Overweight
+</span>
+
+<span>
+Obesity
+</span>
+
+</div>
+
+
+<p
+id="bmiDescription"
+style="
+margin-top:12px;
+font-size:11px;
+color:#6b7c88;
+line-height:1.55;
+"
+>
+--
+</p>
+
+</div>
+
+</div>
+
+
+<!-- HEALTH INFORMATION -->
+
+<div class="section-title">
+Additional Health Information
+</div>
+
+
+<div class="info-grid">
+
+
+<div class="info-box">
+
+<h4>
+BMI-Based Reference Weight
+</h4>
+
+<div
+id="healthyWeight"
+class="info-value"
+>
+--
+</div>
+
+<p>
+Approximate weight range corresponding to
+adult BMI 18.5–24.9 for the entered height.
+</p>
+
+</div>
+
+
+<div class="info-box">
+
+<h4>
+Weight to Reach Reference Range
+</h4>
+
+<div
+id="weightDelta"
+class="info-value"
+>
+--
+</div>
+
+<p id="weightDeltaNote">
+Difference between your current weight and the nearest
+end of the BMI-based reference range above.
+</p>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================
+     NUTRITION
+===================================== -->
+
+<div class="nutrition-section">
+
+<div class="section-title">
+General Nutrition Recommendations
+</div>
+
+
+<div class="nutrition-intro">
+
+<h4 id="nutritionTitle">
+Nutrition guidance
+</h4>
+
+<p id="nutritionIntro">
+--
+</p>
+
+</div>
+
+
+<div class="food-columns">
+
+
+<!-- VEGETARIAN -->
+
+<div class="food-card">
+
+
+<div class="food-header veg">
+
+<div class="food-icon">
+🥗
+</div>
+
+<div>
+
+<h4>
+Vegetarian Options
+</h4>
+
+<p>
+Protein-rich plant-based choices
+</p>
+
+</div>
+
+</div>
+
+
+<div class="food-body">
+
+
+<div class="meal">
+
+<div class="meal-title">
+Breakfast
+</div>
+
+<ul class="food-list">
+
+<li>
+Oats with milk/curd, fruit and nuts
+</li>
+
+<li>
+Vegetable poha with curd
+</li>
+
+<li>
+Besan or moong-dal chilla with vegetables
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="meal">
+
+<div class="meal-title">
+Lunch
+</div>
+
+<ul class="food-list">
+
+<li>
+Dal with roti or brown rice
+</li>
+
+<li>
+Mixed vegetables with curd
+</li>
+
+<li>
+Rajma or chana with a balanced portion of rice
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="meal">
+
+<div class="meal-title">
+Snack
+</div>
+
+<ul class="food-list">
+
+<li>
+Fruit with unsalted nuts
+</li>
+
+<li>
+Roasted chana
+</li>
+
+<li>
+Plain yogurt or buttermilk
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="meal">
+
+<div class="meal-title">
+Dinner
+</div>
+
+<ul class="food-list">
+
+<li>
+Paneer/tofu with vegetables
+</li>
+
+<li>
+Dal with roti and salad
+</li>
+
+<li>
+Vegetable soup with a protein source
+</li>
+
+</ul>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- NON VEGETARIAN -->
+
+<div class="food-card">
+
+
+<div class="food-header nonveg">
+
+<div class="food-icon">
+🍗
+</div>
+
+<div>
+
+<h4>
+Non-Vegetarian Options
+</h4>
+
+<p>
+Lean animal-protein choices
+</p>
+
+</div>
+
+</div>
+
+
+<div class="food-body">
+
+
+<div class="meal">
+
+<div class="meal-title">
+Breakfast
+</div>
+
+<ul class="food-list">
+
+<li>
+Eggs with whole-grain toast and vegetables
+</li>
+
+<li>
+Egg omelette with fruit
+</li>
+
+<li>
+Plain yogurt with oats and nuts
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="meal">
+
+<div class="meal-title">
+Lunch
+</div>
+
+<ul class="food-list">
+
+<li>
+Grilled chicken with vegetables and roti
+</li>
+
+<li>
+Fish with rice and salad
+</li>
+
+<li>
+Chicken curry with vegetables and a moderate rice/roti portion
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="meal">
+
+<div class="meal-title">
+Snack
+</div>
+
+<ul class="food-list">
+
+<li>
+Boiled eggs with fruit
+</li>
+
+<li>
+Plain yogurt with nuts
+</li>
+
+<li>
+Unsweetened milk
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="meal">
+
+<div class="meal-title">
+Dinner
+</div>
+
+<ul class="food-list">
+
+<li>
+Grilled fish with vegetables
+</li>
+
+<li>
+Skinless chicken with salad and roti
+</li>
+
+<li>
+Egg and vegetable preparation with whole grains
+</li>
+
+</ul>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FOOD PRIORITIES -->
+
+<div class="food-priorities">
+
+
+<div class="priority-box emphasize">
+
+<h4>
+Foods to Emphasize
+</h4>
+
+<ul>
+
+<li>
+Vegetables and seasonal fruits
+</li>
+
+<li>
+Whole grains and high-fiber foods
+</li>
+
+<li>
+Pulses, beans and other protein sources
+</li>
+
+<li>
+Nuts and seeds in sensible portions
+</li>
+
+<li>
+Water and minimally processed foods
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="priority-box limit">
+
+<h4>
+Foods to Limit
+</h4>
+
+<ul>
+
+<li>
+Sugar-sweetened beverages
+</li>
+
+<li>
+Highly processed snack foods
+</li>
+
+<li>
+Frequent deep-fried foods
+</li>
+
+<li>
+Excess added sugar and refined grains
+</li>
+
+<li>
+Large portions of calorie-dense foods
+</li>
+
+</ul>
+
+</div>
+
+
+</div>
+
+
+<!-- ADVICE -->
+
+<div
+class="note"
+style="
+margin-top:12px;
+"
+>
+
+<strong>
+Nutrition note
+</strong>
+
+<p id="nutritionNote">
+--
+</p>
+
+</div>
+
+
+</div>
+
+
+<!-- CLINICAL NOTE -->
+
+<div class="note">
+
+<strong>
+Important health information
+</strong>
+
+<p id="clinicalNote">
+BMI is a screening measurement and does not directly
+measure body fat or overall health. The food suggestions
+on this page are general educational recommendations,
+not a diagnosis or individualized medical diet.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     BMI REFERENCE
+===================================== -->
+
+<section class="reference">
+
+<h3>
+Adult BMI Reference
+</h3>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+BMI
+</th>
+
+<th>
+Classification
+</th>
+
+<th>
+General interpretation
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+Below 18.5
+</td>
+
+<td>
+Underweight
+</td>
+
+<td>
+Below standard adult reference range
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+18.5 – 24.9
+</td>
+
+<td>
+Normal weight
+</td>
+
+<td>
+Within standard adult reference range
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+25.0 – 29.9
+</td>
+
+<td>
+Overweight
+</td>
+
+<td>
+Above standard adult reference range
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+30.0 or higher
+</td>
+
+<td>
+Obesity
+</td>
+
+<td>
+At or above standard adult obesity threshold
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+VitalCare Health Assessment · General educational tool ·
+Not a medical diagnostic device
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   ELEMENTS
+===================================== */
+
+const form =
+document.getElementById("healthForm");
+
+const dobInput =
+document.getElementById("dob");
+
+const sexInput =
+document.getElementById("sex");
+
+const feetInput =
+document.getElementById("feet");
+
+const inchesInput =
+document.getElementById("inches");
+
+const weightInput =
+document.getElementById("weight");
+
+const activityInput =
+document.getElementById("activity");
+
+const goalInput =
+document.getElementById("goal");
+
+const errorBox =
+document.getElementById("error");
+
+const today =
+new Date();
+
+/* Safe minimum daily calories (widely used clinical floors,
+   below which a diet should only be followed under medical
+   supervision). */
+const SAFE_FLOOR = {
+    male: 1500,
+    female: 1200
+};
+
+/* Roughly 7700 kcal ≈ 1 kg of body fat. Used only to give a
+   rough, illustrative estimate of weekly rate of change. */
+const KCAL_PER_KG = 7700;
+
+
+/* =====================================
+   DATE LIMIT
+===================================== */
+
+dobInput.max =
+today.toISOString().split("T")[0];
+
+
+/* =====================================
+   FORM SUBMIT
+===================================== */
+
+form.addEventListener(
+"submit",
+function(event) {
+
+event.preventDefault();
+
+hideError();
+
+
+const dob =
+parseDate(dobInput.value);
+
+const sex =
+sexInput.value;
+
+const feet =
+Number(feetInput.value);
+
+const inches =
+Number(inchesInput.value);
+
+const weight =
+Number(weightInput.value);
+
+const activityFactor =
+Number(activityInput.value);
+
+const goal =
+goalInput.value;
+
+
+/* VALIDATION */
+
+if (!dobInput.value) {
+
+showError(
+"Please enter your date of birth."
+);
+
+return;
+}
+
+
+if (!sex) {
+
+showError(
+"Please select your sex."
+);
+
+return;
+}
+
+
+if (
+!Number.isFinite(feet) ||
+feet < 2 ||
+feet > 8
+) {
+
+showError(
+"Please enter a valid height in feet."
+);
+
+return;
+}
+
+
+if (
+!Number.isFinite(inches) ||
+inches < 0 ||
+inches >= 12
+) {
+
+showError(
+"Please enter inches between 0 and 11.9."
+);
+
+return;
+}
+
+
+if (
+!Number.isFinite(weight) ||
+weight < 10 ||
+weight > 500
+) {
+
+showError(
+"Please enter a valid weight between 10 and 500 kg."
+);
+
+return;
+}
+
+
+if (dob > today) {
+
+showError(
+"Date of birth cannot be in the future."
+);
+
+return;
+}
+
+
+/* =====================================
+   AGE
+===================================== */
+
+const age =
+calculateAge(
+dob,
+today
+);
+
+
+if (age.years < 2) {
+
+showError(
+"This tool is designed for adults and is not suitable for infants or toddlers."
+);
+
+return;
+}
+
+
+/* =====================================
+   HEIGHT
+===================================== */
+
+const totalInches =
+(feet * 12) + inches;
+
+const heightCm =
+totalInches * 2.54;
+
+const heightM =
+heightCm / 100;
+
+
+/* =====================================
+   BMI
+===================================== */
+
+const bmi =
+weight /
+(heightM * heightM);
+
+
+/* =====================================
+   BSA
+===================================== */
+
+const bsa =
+Math.sqrt(
+(heightCm * weight) / 3600
+);
+
+
+/* =====================================
+   BMR (Mifflin-St Jeor)
+===================================== */
+
+let bmr;
+
+if (sex === "male") {
+
+bmr =
+(10 * weight) +
+(6.25 * heightCm) -
+(5 * age.years) +
+5;
+
+} else {
+
+bmr =
+(10 * weight) +
+(6.25 * heightCm) -
+(5 * age.years) -
+161;
+
+}
+
+
+/* =====================================
+   TDEE & CALORIE TARGET
+===================================== */
+
+const tdee =
+bmr * activityFactor;
+
+const safeFloor =
+SAFE_FLOOR[sex];
+
+const calorieResult =
+getCalorieTarget(
+tdee,
+goal,
+safeFloor,
+bmi,
+age.years
+);
+
+
+/* =====================================
+   REFERENCE WEIGHT
+===================================== */
+
+const lowerWeight =
+18.5 *
+heightM *
+heightM;
+
+const upperWeight =
+24.9 *
+heightM *
+heightM;
+
+let weightDeltaText =
+"At reference weight";
+
+let weightDeltaNote =
+"You are within the standard BMI-based reference range for your height.";
+
+if (weight < lowerWeight) {
+
+weightDeltaText =
+`+${(lowerWeight - weight).toFixed(1)} kg`;
+
+weightDeltaNote =
+"Approximate amount to gain to reach the lower end of the reference range.";
+
+} else if (weight > upperWeight) {
+
+weightDeltaText =
+`-${(weight - upperWeight).toFixed(1)} kg`;
+
+weightDeltaNote =
+"Approximate amount to lose to reach the upper end of the reference range.";
+
+}
+
+
+/* =====================================
+   DISPLAY BASIC RESULTS
+===================================== */
+
+document.getElementById("age")
+.textContent =
+age.years;
+
+document.getElementById("ageDetail")
+.textContent =
+`${age.months} months, ${age.days} days`;
+
+
+document.getElementById("heightCm")
+.textContent =
+heightCm.toFixed(1);
+
+document.getElementById("heightDisplay")
+.textContent =
+`${feet} ft ${inches.toFixed(1)} in`;
+
+
+document.getElementById("weightResult")
+.textContent =
+weight.toFixed(1);
+
+document.getElementById("weightLb")
+.textContent =
+`${(weight * 2.20462).toFixed(1)} lb`;
+
+
+document.getElementById("bsa")
+.textContent =
+bsa.toFixed(2);
+
+
+document.getElementById("healthyWeight")
+.textContent =
+`${lowerWeight.toFixed(1)} – ${upperWeight.toFixed(1)} kg`;
+
+document.getElementById("weightDelta")
+.textContent =
+weightDeltaText;
+
+document.getElementById("weightDeltaNote")
+.textContent =
+weightDeltaNote;
+
+
+/* =====================================
+   CALORIE PANEL
+===================================== */
+
+document.getElementById("bmrValue")
+.textContent =
+`${Math.round(bmr)} kcal`;
+
+document.getElementById("tdeeValue")
+.textContent =
+`${Math.round(tdee)} kcal`;
+
+document.getElementById("calorieTarget")
+.textContent =
+Math.round(calorieResult.target);
+
+document.getElementById("calorieGoalLabel")
+.textContent =
+calorieResult.label;
+
+document.getElementById("weeklyChangeValue")
+.textContent =
+calorieResult.weeklyChangeText;
+
+document.getElementById("calorieNote")
+.textContent =
+calorieResult.note;
+
+document.getElementById("caloriePanel")
+.className =
+calorieResult.capped ?
+"calorie-panel warn" :
+"calorie-panel";
+
+
+/* =====================================
+   BMI
+===================================== */
+
+const category =
+getBMIClassification(bmi);
+
+
+document.getElementById("bmi")
+.textContent =
+bmi.toFixed(1);
+
+document.getElementById("bmiMetric")
+.textContent =
+bmi.toFixed(1);
+
+document.getElementById("bmiMetricSub")
+.textContent =
+category.name;
+
+
+const status =
+document.getElementById("bmiStatus");
+
+status.textContent =
+category.name;
+
+status.className =
+"status " +
+category.className;
+
+
+document.getElementById("bmiDescription")
+.textContent =
+category.description;
+
+
+/* BMI MARKER */
+
+let markerPosition =
+((bmi - 10) / 30) * 100;
+
+markerPosition =
+Math.max(
+0,
+Math.min(100, markerPosition)
+);
+
+document.getElementById("marker")
+.style.left =
+`calc(${markerPosition}% - 2px)`;
+
+
+/* =====================================
+   NUTRITION RECOMMENDATIONS
+===================================== */
+
+setNutritionGuidance(
+bmi,
+age.years,
+calorieResult
+);
+
+
+/* =====================================
+   UNDER-18 WARNING
+===================================== */
+
+if (age.years < 18) {
+
+document.getElementById("clinicalNote")
+.textContent =
+"The adult BMI categories and calorie estimates shown here are not intended for children and adolescents. For people under 18, growth and nutrition should be assessed using age- and sex-specific charts by a qualified healthcare professional.";
+
+} else {
+
+document.getElementById("clinicalNote")
+.textContent =
+"BMI and estimated calorie needs are screening tools, not a medical diagnosis or individualized prescription. Actual calorie needs vary with metabolism, medical conditions and medications — a healthcare professional or registered dietitian can tailor this to you.";
+
+}
+
+
+/* =====================================
+   SHOW RESULTS
+===================================== */
+
+document.getElementById("empty")
+.style.display =
+"none";
+
+document.getElementById("results")
+.style.display =
+"block";
+
+}
+);
+
+
+/* =====================================
+   RESET
+===================================== */
+
+document.getElementById("reset")
+.addEventListener(
+"click",
+function() {
+
+form.reset();
+
+document.getElementById("empty")
+.style.display =
+"block";
+
+document.getElementById("results")
+.style.display =
+"none";
+
+hideError();
+
+}
+);
+
+
+/* =====================================
+   AGE CALCULATOR
+===================================== */
+
+function calculateAge(
+birth,
+current
+) {
+
+let years =
+current.getFullYear() -
+birth.getFullYear();
+
+let months =
+current.getMonth() -
+birth.getMonth();
+
+let days =
+current.getDate() -
+birth.getDate();
+
+
+if (days < 0) {
+
+months--;
+
+const previousMonth =
+new Date(
+current.getFullYear(),
+current.getMonth(),
+0
+);
+
+days +=
+previousMonth.getDate();
+
+}
+
+
+if (months < 0) {
+
+years--;
+
+months += 12;
+
+}
+
+
+return {
+years,
+months,
+days
+};
+
+}
+
+
+/* =====================================
+   DATE PARSER
+===================================== */
+
+function parseDate(value) {
+
+const parts =
+value.split("-");
+
+return new Date(
+Number(parts[0]),
+Number(parts[1]) - 1,
+Number(parts[2])
+);
+
+}
+
+
+/* =====================================
+   BMI CLASSIFICATION
+===================================== */
+
+function getBMIClassification(bmi) {
+
+if (bmi < 18.5) {
+
+return {
+
+name:
+"Underweight",
+
+className:
+"status-underweight",
+
+description:
+"Your BMI is below the standard adult reference range. Nutrition, medical history, activity level and other factors should be considered when interpreting this result."
+
+};
+
+}
+
+
+if (bmi < 25) {
+
+return {
+
+name:
+"Normal weight",
+
+className:
+"status-normal",
+
+description:
+"Your BMI is within the standard adult reference range of 18.5–24.9. BMI alone does not determine body composition or overall health."
+
+};
+
+}
+
+
+if (bmi < 30) {
+
+return {
+
+name:
+"Overweight",
+
+className:
+"status-overweight",
+
+description:
+"Your BMI is above the standard adult reference range. Body composition, muscle mass, waist circumference and other health factors can affect interpretation."
+
+};
+
+}
+
+
+return {
+
+name:
+"Obesity",
+
+className:
+"status-obesity",
+
+description:
+"Your BMI is at or above 30. BMI is a screening measurement and should be considered alongside other health measurements."
+
+};
+
+}
+
+
+/* =====================================
+   CALORIE TARGET LOGIC
+===================================== */
+
+function getCalorieTarget(
+tdee,
+goal,
+safeFloor,
+bmi,
+years
+) {
+
+/* Maintain */
+
+if (goal === "maintain") {
+
+return {
+
+target: tdee,
+
+label:
+"Maintenance calories",
+
+weeklyChangeText:
+"≈ 0 kg/week",
+
+note:
+"This is an estimate of the calories needed to keep your weight roughly stable at your current activity level.",
+
+capped: false
+
+};
+
+}
+
+
+/* Gain */
+
+if (goal === "gain") {
+
+const target =
+tdee + 350;
+
+const weeklyKg =
+(350 * 7) / KCAL_PER_KG;
+
+return {
+
+target,
+
+label:
+"Calorie target for gradual weight gain",
+
+weeklyChangeText:
+`+${weeklyKg.toFixed(2)} kg/week`,
+
+note:
+"A modest surplus (~350 kcal/day) supports gradual, mostly lean weight gain when paired with resistance exercise. Very rapid gain mainly adds fat.",
+
+capped: false
+
+};
+
+}
+
+
+/* Lose */
+
+if (bmi < 18.5) {
+
+return {
+
+target: tdee,
+
+label:
+"Weight loss not recommended right now",
+
+weeklyChangeText:
+"—",
+
+note:
+"Your BMI is already below the standard adult reference range, so an additional calorie deficit is not shown here. If intentional weight loss is still a goal, please discuss this first with a healthcare professional or registered dietitian.",
+
+capped: true
+
+};
+
+}
+
+
+if (years > 0 && years < 18) {
+
+return {
+
+target: tdee,
+
+label:
+"Calorie targets for weight loss aren't shown for under-18s",
+
+weeklyChangeText:
+"—",
+
+note:
+"Calorie needs for people under 18 depend on growth stage and should be assessed by a pediatric healthcare professional rather than a generic adult calculation.",
+
+capped: true
+
+};
+
+}
+
+
+let deficit =
+Math.min(500, tdee * 0.25);
+
+let target =
+tdee - deficit;
+
+let capped = false;
+
+
+if (target < safeFloor) {
+
+target = safeFloor;
+
+deficit = tdee - target;
+
+capped = true;
+
+}
+
+
+const weeklyKg =
+(deficit * 7) / KCAL_PER_KG;
+
+
+return {
+
+target,
+
+label:
+"Calorie target for gradual weight loss",
+
+weeklyChangeText:
+`-${weeklyKg.toFixed(2)} kg/week`,
+
+note:
+capped ?
+`Your calculated deficit was capped at a widely-used safe minimum of ${safeFloor} kcal/day. Going lower without medical supervision is not recommended. A slower, sustainable pace and consistent activity will still produce results over time.` :
+"This reflects a moderate ~500 kcal/day deficit, in line with general guidance for gradual, sustainable weight loss of about 0.5 kg per week. Actual results vary by individual.",
+
+capped
+
+};
+
+}
+
+
+/* =====================================
+   NUTRITION GUIDANCE
+===================================== */
+
+function setNutritionGuidance(
+bmi,
+age,
+calorieResult
+) {
+
+const title =
+document.getElementById(
+"nutritionTitle"
+);
+
+const intro =
+document.getElementById(
+"nutritionIntro"
+);
+
+const note =
+document.getElementById(
+"nutritionNote"
+);
+
+const targetKcal =
+Math.round(calorieResult.target);
+
+
+/* UNDERWEIGHT */
+
+if (bmi < 18.5) {
+
+title.textContent =
+"Nutrition focus: adequate nourishment";
+
+intro.textContent =
+`Around ${targetKcal} kcal/day at your current activity level, prioritize regular, nutrient-dense meals with adequate protein, healthy fats, whole grains, vegetables and fruit. If you are unintentionally losing weight or have difficulty gaining weight, discuss this with a healthcare professional.`;
+
+note.textContent =
+"Do not rely mainly on sweets, sugary drinks or highly processed foods to increase weight. Nutrient-dense foods and adequate protein are generally more useful. Persistent unexplained weight loss should be medically assessed.";
+
+return;
+
+}
+
+
+/* NORMAL */
+
+if (bmi < 25) {
+
+title.textContent =
+"Nutrition focus: maintain a balanced pattern";
+
+intro.textContent =
+`Around ${targetKcal} kcal/day supports your selected goal. Focus on a varied diet containing vegetables, fruit, whole grains, protein-rich foods and healthy sources of fat. Portion needs vary according to activity, age and individual circumstances.`;
+
+note.textContent =
+"Maintaining a healthy dietary pattern is generally more useful than focusing on individual foods. Regular physical activity, adequate sleep and hydration also contribute to overall health.";
+
+return;
+
+}
+
+
+/* OVERWEIGHT */
+
+if (bmi < 30) {
+
+title.textContent =
+"Nutrition focus: balanced portions and nutrient density";
+
+intro.textContent =
+`Around ${targetKcal} kcal/day, spread across the day, supports your selected goal. Emphasize vegetables, fruit, whole grains, pulses and lean protein while being mindful of portions and foods high in added sugar or energy density. Gradual sustainable changes are generally preferable to extreme diets.`;
+
+note.textContent =
+"If weight reduction is a goal, protein at each meal and fiber-rich carbohydrates can help with fullness at a lower calorie intake. A healthcare professional or registered dietitian can help develop a suitable individualized plan.";
+
+return;
+
+}
+
+
+/* OBESITY */
+
+title.textContent =
+"Nutrition focus: nutrient-dense foods and sustainable habits";
+
+intro.textContent =
+`Around ${targetKcal} kcal/day, spread across the day, supports your selected goal. Emphasize vegetables, fruit, whole grains, pulses and lean protein while limiting frequent intake of sugary drinks, highly processed foods and large portions of energy-dense foods.`;
+
+note.textContent =
+"If weight management is a health goal, consider discussing an individualized nutrition and activity plan with a healthcare professional or registered dietitian, particularly if you have medical conditions or take medications.";
+
+}
+
+
+/* =====================================
+   ERROR
+===================================== */
+
+function showError(message) {
+
+errorBox.textContent =
+message;
+
+errorBox.style.display =
+"block";
+
+}
+
+
+function hideError() {
+
+errorBox.textContent =
+"";
+
+errorBox.style.display =
+"none";
+
+}
+
+</script>
+
+</body>
+</html>
